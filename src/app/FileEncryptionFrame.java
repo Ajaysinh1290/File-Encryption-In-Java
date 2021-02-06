@@ -48,6 +48,7 @@ public class FileEncryptionFrame extends JFrame {
 		scrollPane.getVerticalScrollBar().setUnitIncrement(80);
 		scrollPane.getVerticalScrollBar().setBackground(Color.decode("#E0FFFF"));
 		
+		this.setSize(PANEL_WIDTH, 120);
 		this.add(scrollPane);
 		getAllFiles();
 
@@ -71,7 +72,7 @@ public class FileEncryptionFrame extends JFrame {
 		for (int index = 0; index < fileData.size(); index++) {
 			body.add(getPanel(fileData.get(index), index));
 		}
-		this.setSize(PANEL_WIDTH, fileData.size() == 0 ? 500 : (fileData.size() + 1) * PANEL_HEIGHT + 40);
+		this.setSize(getWidth(), fileData.size() == 0 ? 500 : (fileData.size() + 1) * PANEL_HEIGHT + 40);
 		scrollPane.setViewportView(body);
 		repaint();
 	}
@@ -109,8 +110,8 @@ public class FileEncryptionFrame extends JFrame {
 			deleteButton.addActionListener(e -> {
 				fileData.remove(index);
 				new FileHandler().updateData(fileData);
-				body.remove(panel);
-				this.setSize(this.getWidth(), (this.getHeight()) - FileEncryptionFrame.PANEL_HEIGHT);
+				this.body.removeAll();
+				this.getAllFiles();
 			});
 			deleteButton.setForeground(Color.white);
 			buttonPanel.add(deleteButton, BorderLayout.EAST);
